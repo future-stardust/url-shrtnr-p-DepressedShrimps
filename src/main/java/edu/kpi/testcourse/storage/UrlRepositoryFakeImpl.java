@@ -30,10 +30,4 @@ public class UrlRepositoryFakeImpl implements UrlRepository {
     // TODO: We should implement it
     throw new UnsupportedOperationException();
   }
-
-  @Override
-  public List<UrlAlias> getAllAliasesForUser(String userEmail) {
-    // TODO: We should implement it
-    throw new UnsupportedOperationException();
-  }
 }
