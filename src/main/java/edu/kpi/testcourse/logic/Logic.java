@@ -73,6 +73,34 @@ public class Logic {
     }
 
     urls.createUrlAlias(new UrlAlias(finalAlias, url, email));
+    users.addAlias(email, finalAlias);
+
+    return finalAlias;
+  }
+
+  /**
+   * Delete a URL alias (shortened version).
+   *
+   * @param alias a proposed alias
+   *
+   * @return a shortened URL
+   */
+  public void deleteAlias(String email, String alias) throws AliasAlreadyExist {
+    urls.deleteUrlAlias(alias);
+    users.deleteAlias(email, alias);
+  }
+
+  /**
+   * Create a new URL alias (shortened version).
+   *
+   * @param email an email of a user that creates the alias
+   * @param url a full URL
+   * @param alias a proposed alias
+   *
+   * @return a shortened URL
+   */
+  public String showUserAlias(String email) throws AliasAlreadyExist {
+    urls.createUrlAlias(new UrlAlias(finalAlias, url, email));
 
     return finalAlias;
   }

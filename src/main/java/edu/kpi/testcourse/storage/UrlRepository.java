@@ -30,11 +30,6 @@ public interface UrlRepository {
   void deleteUrlAlias(String email, String alias) throws PermissionDenied;
 
   /**
-   * Finds all URLs that belong to the user with the given email.
-   */
-  List<UrlAlias> getAllAliasesForUser(String userEmail);
-
-  /**
    * Error for a case when we try to create a shortened URL that is already exist.
    */
   class AliasAlreadyExist extends IllegalStateException {

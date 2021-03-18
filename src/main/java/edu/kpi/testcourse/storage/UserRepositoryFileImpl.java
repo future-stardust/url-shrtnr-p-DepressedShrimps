@@ -10,7 +10,9 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -48,14 +50,26 @@ public class UserRepositoryFileImpl implements UserRepository {
     return users.get(email);
   }
 
-  public synchronized void addUrl(UrlAlias urlAl) {
-    if (!users.containsKey(urlAl.email())) {
-      users.get(urlAl.email()).urls().add(urlAl.alias());
-    } else{
-      throw new RuntimeException("Error: User isn't founded!");
-    }
+  @Override
+  public List<String> getAllAliasesForUser(String email) {
+    return users.get(email).urls();
+  }
+
+  @Override
+  public synchronized void addUrlAlias(String email, String alias) {
+    users.get(email).urls().add(alias);
     writeUsersToJsonDatabaseFile(jsonTool, users, makeJsonFilePath(appConfig.storageRoot()));
   }
+
+  @Override
+  public synchronized void deleteUrlAlias(String email, String alias) {
+    User user = users.get(email);
+    if (user.urls().contains(alias)) {
+      user.urls().remove(alias);
+      writeUsersToJsonDatabaseFile(jsonTool, users, makeJsonFilePath(appConfig.storageRoot()));
+    }
+  }
+
   private static Path makeJsonFilePath(Path storageRoot) {
     return storageRoot.resolve("user-repository.json");
   }
