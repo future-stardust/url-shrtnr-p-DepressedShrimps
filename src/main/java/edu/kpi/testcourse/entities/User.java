@@ -7,5 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public record User(
     @JsonProperty("email") String email,
-    @JsonProperty("passwordHash") String passwordHash
+    @JsonProperty("passwordHash") String passwordHash,
+    @JsonProperty("urls") String[] urls
 ) {}
