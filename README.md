@@ -24,6 +24,7 @@ for the requirements.
 #### Main scenario endpoints
 
 1. Sign up
+text
 
 ```shell
 curl --request POST \
