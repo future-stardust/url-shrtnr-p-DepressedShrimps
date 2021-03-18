@@ -1,6 +1,7 @@
 package edu.kpi.testcourse.storage;
 
 import com.google.gson.reflect.TypeToken;
+import edu.kpi.testcourse.entities.UrlAlias;
 import edu.kpi.testcourse.entities.User;
 import edu.kpi.testcourse.logic.UrlShortenerConfig;
 import edu.kpi.testcourse.serialization.JsonTool;
@@ -47,6 +48,14 @@ public class UserRepositoryFileImpl implements UserRepository {
     return users.get(email);
   }
 
+  public synchronized void addUrl(UrlAlias urlAl) {
+    if (!users.containsKey(urlAl.email())) {
+      users.get(urlAl.email()).urls().add(urlAl.alias());
+    } else{
+      throw new RuntimeException("Error: User isn't founded!");
+    }
+    writeUsersToJsonDatabaseFile(jsonTool, users, makeJsonFilePath(appConfig.storageRoot()));
+  }
   private static Path makeJsonFilePath(Path storageRoot) {
     return storageRoot.resolve("user-repository.json");
   }
