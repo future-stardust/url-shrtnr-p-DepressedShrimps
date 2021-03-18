@@ -5,6 +5,7 @@ import edu.kpi.testcourse.entities.User;
 import edu.kpi.testcourse.storage.UrlRepository;
 import edu.kpi.testcourse.storage.UrlRepository.AliasAlreadyExist;
 import edu.kpi.testcourse.storage.UserRepository;
+import java.util.ArrayList;
 
 /**
  * Business logic of the URL shortener application.
@@ -34,7 +35,7 @@ public class Logic {
     if (users.findUser(email) != null) {
       throw new UserIsAlreadyCreated();
     } else {
-      users.createUser(new User(email, hashUtils.generateHash(password)));
+      users.createUser(new User(email, hashUtils.generateHash(password), new ArrayList<String>()));
     }
   }
 
@@ -66,8 +67,7 @@ public class Logic {
   public String createNewAlias(String email, String url, String alias) throws AliasAlreadyExist {
     String finalAlias;
     if (alias == null || alias.isEmpty()) {
-      // TODO: Generate short alias
-      throw new UnsupportedOperationException("Is not implemented yet");
+      finalAlias = hashUtils.generateShortHas(url);
     } else {
       finalAlias = alias;
     }
