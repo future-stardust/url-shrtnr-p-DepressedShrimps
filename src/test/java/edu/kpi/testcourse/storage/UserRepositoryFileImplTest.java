@@ -3,6 +3,7 @@ package edu.kpi.testcourse.storage;
 import edu.kpi.testcourse.entities.User;
 import edu.kpi.testcourse.logic.UrlShortenerConfig;
 import edu.kpi.testcourse.serialization.JsonToolJacksonImpl;
+import java.util.ArrayList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,7 +46,7 @@ class UserRepositoryFileImplTest {
   void createsOneUser() {
     // GIVEN
     var email = "user1@example.org";
-    var user = new User(email, "hash1");
+    var user = new User(email, "hash1", new ArrayList<String>());
 
     // WHEN
     userRepository.createUser(user);
@@ -58,7 +59,7 @@ class UserRepositoryFileImplTest {
   void serializesOneUser() throws IOException {
     // GIVEN
     var email = "user1@example.org";
-    var user = new User(email, "hash1");
+    var user = new User(email, "hash1", new ArrayList<String>());
 
     // WHEN
     userRepository.createUser(user);
@@ -73,7 +74,7 @@ class UserRepositoryFileImplTest {
   void deserializesOneUser() {
     // GIVEN
     var email = "user1@example.org";
-    var user = new User(email, "hash1");
+    var user = new User(email, "hash1", new ArrayList<String>());
     userRepository.createUser(user);
 
     // WHEN
@@ -88,7 +89,7 @@ class UserRepositoryFileImplTest {
   void doesNotCreateDuplicateUser() {
     // GIVEN
     var email = "user1@example.org";
-    var user = new User(email, "hash1");
+    var user = new User(email, "hash1", new ArrayList<String>());
     userRepository.createUser(user);
 
     // WHEN + THEN
@@ -99,9 +100,9 @@ class UserRepositoryFileImplTest {
   void findsCorrectUser() {
     // GIVEN
     var email1 = "user1@example.org";
-    var user1 = new User(email1, "hash1");
+    var user1 = new User(email1, "hash1", new ArrayList<String>());
     var email2 = "user2@example.org";
-    var user2 = new User(email2, "hash2");
+    var user2 = new User(email2, "hash2", new ArrayList<String>());
 
     // WHEN
     userRepository.createUser(user1);

@@ -98,8 +98,16 @@ public class Logic {
    *
    * @return a shortened URL
    */
-  public List<String> showUserAlias(String email) throws AliasAlreadyExist {
-    return users.getAllAliasesForUser(email);
+  public List<UrlAlias> showUserAlias(String email) throws AliasAlreadyExist {
+    List<String> userAlias = users.getAllAliasesForUser(email);
+    if (userAlias != null) {
+      List<UrlAlias> urls = new ArrayList<>();
+      for(String url: userAlias){
+        urls.add(this.urls.findUrlAlias(url));
+      }
+      return urls;
+    }
+    return null;
   }
 
   /**

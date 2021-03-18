@@ -1,6 +1,7 @@
 package edu.kpi.testcourse.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import edu.kpi.testcourse.entities.UrlAlias;
 import edu.kpi.testcourse.logic.Logic;
 import edu.kpi.testcourse.rest.models.ErrorResponse;
 import edu.kpi.testcourse.rest.models.UrlShortenRequest;
@@ -107,7 +108,7 @@ public class AuthenticatedApiController {
   ) throws JsonProcessingException {
     String email = principal.getName();
     try {
-      List<String> al = logic.showUserAlias(email);
+      List<UrlAlias> al = logic.showUserAlias(email);
       return HttpResponse.ok(
         json.toJson(al.toArray())
       );
