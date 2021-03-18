@@ -1,7 +1,6 @@
 package edu.kpi.testcourse.storage;
 
 import com.google.gson.reflect.TypeToken;
-import edu.kpi.testcourse.entities.UrlAlias;
 import edu.kpi.testcourse.entities.User;
 import edu.kpi.testcourse.logic.UrlShortenerConfig;
 import edu.kpi.testcourse.serialization.JsonTool;
@@ -10,7 +9,6 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

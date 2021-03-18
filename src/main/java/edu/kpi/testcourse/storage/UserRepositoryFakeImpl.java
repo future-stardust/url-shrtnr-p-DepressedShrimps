@@ -27,18 +27,20 @@ public class UserRepositoryFakeImpl implements UserRepository {
 
 
   @Override
-  public List<String> getAllAliasesForUser(String userEmail) {
-    // TODO: We should implement it
-    throw new UnsupportedOperationException();
+  public List<String> getAllAliasesForUser(String email) {
+    return users.get(email).urls();
   }
 
   @Override
   public void addUrlAlias(String email, String alias) {
-
+    if (users.containsKey(email)){
+      users.get(email).urls().add(alias);
+    }
   }
 
   @Override
   public void deleteUrlAlias(String email, String alias) {
-
+    User user = users.get(email);
+    user.urls().remove(alias);
   }
 }
