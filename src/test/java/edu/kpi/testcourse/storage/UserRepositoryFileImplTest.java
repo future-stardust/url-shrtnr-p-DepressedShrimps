@@ -122,4 +122,21 @@ class UserRepositoryFileImplTest {
     assertThat(userRepository.findUser("user1@example.org")).isEqualTo(null);
   }
 
+  @Test
+  void addUserAliasTestAndListAliasesTest () {
+    // GIVEN
+    var email = "user@example.org";
+    var user = new User(email, "hash1", new ArrayList<String>());
+
+    userRepository.createUser(user);
+
+    // WHEN
+    userRepository.addUrlAlias(user.email, "short");
+
+    // THEN
+    assertThat(userRepository.getAllAliasesForUser().get(0)).isEqualTo("short");
+  }
+
+  
+
 }
