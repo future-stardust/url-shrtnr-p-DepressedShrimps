@@ -6,6 +6,7 @@ import edu.kpi.testcourse.storage.UrlRepository.AliasAlreadyExist;
 import edu.kpi.testcourse.storage.UrlRepositoryFakeImpl;
 import edu.kpi.testcourse.storage.UserRepositoryFakeImpl;
 import java.util.ArrayList;
+import javax.validation.constraints.Null;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -119,5 +120,19 @@ class LogicTest {
     // THEN
     assertThat(aliases.get(0).alias).isEqualTo("short");
     assertThat(aliases.get(1).alias).isEqualTo("shorter");
+  }
+
+  @Test
+  void shouldNotReturnListOfAliases() {
+    // GIVEN
+    Logic logic = createLogic();
+
+    // WHEN
+    var alias1 = logic.createNewAlias("aaa@bbb.com", "http://g.com/loooong_url", "short");
+    logic.deleteAlias("aaa@bbb.com", "short");
+    var aliases = logic.showUserAlias("aaa@bbb.com");
+
+    // THEN
+    assertThat(aliases).isEqualTo(null);
   }
 }
