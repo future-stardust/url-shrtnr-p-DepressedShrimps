@@ -92,4 +92,19 @@ class LogicTest {
       logic.createNewAlias("ddd@bbb.com", "http://d.com/laaaang_url", "short");
     }).isInstanceOf(AliasAlreadyExist.class);
   }
+
+  @Test
+  void shouldDeleteAlias() {
+    // GIVEN
+    Logic logic = createLogic();
+
+    // WHEN
+    var alias = logic.createNewAlias("aaa@bbb.com", "http://g.com/loooong_url", "short");
+    logic.deleteAlias("aaa@bbb.com", "short");
+
+    // THEN
+    assertThat(logic.findFullUrl("short")).isNull();
+  }
+
+
 }
