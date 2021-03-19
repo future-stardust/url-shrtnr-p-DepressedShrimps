@@ -82,24 +82,30 @@ public class Logic {
   /**
    * Delete a URL alias (shortened version).
    *
-   * @param alias a proposed alias
-   *
-   * @return a shortened URL
+   * @param alias an ailas that needs to be deleted
    */
-  public void deleteAlias(String email, String alias) throws AliasAlreadyExist {
+  public void deleteAlias(String email, String alias) {
     urls.deleteUrlAlias(email, alias);
     users.deleteUrlAlias(email, alias);
   }
 
   /**
-   * Create a new URL alias (shortened version).
+   * List all of user's aliases.
    *
-   * @param email an email of a user that creates the alias
+   * @param email an email of a user that created the aliases
    *
-   * @return a shortened URL
+   * @return List of all user aliases
    */
-  public List<String> showUserAlias(String email) throws AliasAlreadyExist {
-    return users.getAllAliasesForUser(email);
+  public List<UrlAlias> showUserAlias(String email) {
+    List<String> userAlias = users.getAllAliasesForUser(email);
+    if (userAlias != null) {
+      List<UrlAlias> urls = new ArrayList<>();
+      for(String url: userAlias){
+        urls.add(this.urls.findUrlAlias(url));
+      }
+      return urls;
+    }
+    return null;
   }
 
   /**
@@ -126,5 +132,9 @@ public class Logic {
       super("User with such email is already created");
     }
   }
+
+  /**
+   *
+   */
 
 }

@@ -1,6 +1,19 @@
-# One - URL shortener 🍭
+# DepressedShrimps - URL shortener :fried_shrimp:
 
-This is a sample solution project for "Software testing" course labs.
+This is a template project for "Software testing" course labs. Use it to create your own repo and 
+fulfill/rewrite this document (at least, replace everything in `{...}`).
+
+## Students group
+
+- Торбанов Олександр - torbanowmain@gmail.com  
+- Кравчук Олександр - sanyakrasavacue2@gmail.com   
+- Сімаков Єгор - novayazemlya2015@gmail.com 
+- Дремов Артем - a.k.dremov@gmail.com
+
+## Design document
+
+The [design document](https://docs.google.com/document/d/1JGxmZHLfinzL4WLcROh6ILBgz4L3bUKLdO2m5v9jXmg/edit?usp=sharing) that
+describes architecture and implementation details of this project.
 
 ## Specification
 
@@ -11,6 +24,7 @@ for the requirements.
 #### Main scenario endpoints
 
 1. Sign up
+text
 
 ```shell
 curl --request POST \
