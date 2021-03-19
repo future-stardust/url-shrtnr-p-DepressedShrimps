@@ -5,6 +5,8 @@ import edu.kpi.testcourse.entities.User;
 import edu.kpi.testcourse.storage.UrlRepository;
 import edu.kpi.testcourse.storage.UrlRepository.AliasAlreadyExist;
 import edu.kpi.testcourse.storage.UserRepository;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Business logic of the URL shortener application.
@@ -34,7 +36,7 @@ public class Logic {
     if (users.findUser(email) != null) {
       throw new UserIsAlreadyCreated();
     } else {
-      users.createUser(new User(email, hashUtils.generateHash(password)));
+      users.createUser(new User(email, hashUtils.generateHash(password), new ArrayList<String>()));
     }
   }
 
@@ -66,15 +68,46 @@ public class Logic {
   public String createNewAlias(String email, String url, String alias) throws AliasAlreadyExist {
     String finalAlias;
     if (alias == null || alias.isEmpty()) {
-      // TODO: Generate short alias
-      throw new UnsupportedOperationException("Is not implemented yet");
+      finalAlias = hashUtils.generateShortHas(url);
     } else {
       finalAlias = alias;
     }
 
     urls.createUrlAlias(new UrlAlias(finalAlias, url, email));
+    users.addUrlAlias(email, finalAlias);
 
     return finalAlias;
+  }
+
+  /**
+   * Delete a URL alias (shortened version).
+   *
+   * @param alias a proposed alias
+   *
+   * @return a shortened URL
+   */
+  public void deleteAlias(String email, String alias) throws AliasAlreadyExist {
+    urls.deleteUrlAlias(email, alias);
+    users.deleteUrlAlias(email, alias);
+  }
+
+  /**
+   * Create a new URL alias (shortened version).
+   *
+   * @param email an email of a user that creates the alias
+   *
+   * @return a shortened URL
+   */
+  public List<UrlAlias> showUserAlias(String email) throws AliasAlreadyExist {
+    List<String> userAlias = users.getAllAliasesForUser(email);
+    if (userAlias != null) {
+      List<UrlAlias> urls = new ArrayList<>();
+      for(String url: userAlias){
+        urls.add(this.urls.findUrlAlias(url));
+      }
+      return urls;
+    }
+    return null;
   }
 
   /**

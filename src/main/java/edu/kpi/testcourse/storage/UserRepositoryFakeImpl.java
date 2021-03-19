@@ -1,7 +1,9 @@
 package edu.kpi.testcourse.storage;
 
+import edu.kpi.testcourse.entities.UrlAlias;
 import edu.kpi.testcourse.entities.User;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
 
@@ -21,5 +23,24 @@ public class UserRepositoryFakeImpl implements UserRepository {
   @Override
   public @Nullable User findUser(String email) {
     return users.get(email);
+  }
+
+
+  @Override
+  public List<String> getAllAliasesForUser(String email) {
+    return users.get(email).urls();
+  }
+
+  @Override
+  public void addUrlAlias(String email, String alias) {
+    if (users.containsKey(email)){
+      users.get(email).urls().add(alias);
+    }
+  }
+
+  @Override
+  public void deleteUrlAlias(String email, String alias) {
+    User user = users.get(email);
+    user.urls().remove(alias);
   }
 }

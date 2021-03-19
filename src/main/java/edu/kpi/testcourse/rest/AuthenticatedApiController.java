@@ -1,7 +1,7 @@
 package edu.kpi.testcourse.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.kpi.testcourse.entities.UrlAlias;
 import edu.kpi.testcourse.logic.Logic;
 import edu.kpi.testcourse.rest.models.ErrorResponse;
 import edu.kpi.testcourse.rest.models.UrlShortenRequest;
@@ -13,11 +13,15 @@ import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Delete;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Header;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.server.util.HttpHostResolver;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import java.security.Principal;
+import java.util.List;
 import javax.inject.Inject;
 
 /**
@@ -68,6 +72,49 @@ public class AuthenticatedApiController {
     } catch (AliasAlreadyExist e) {
       return HttpResponse.serverError(
         json.toJson(new ErrorResponse(1, "Alias is already taken"))
+      );
+    }
+  }
+
+  /**
+   * Delete URL alias.
+   */
+  @Delete(value = "/urls/{alias}", processes = MediaType.APPLICATION_JSON)
+  public HttpResponse<?> delete(
+    @Header String alias,
+    @Body UrlShortenRequest request,
+    Principal principal,
+    HttpRequest<?> httpRequest
+  ) throws JsonProcessingException {
+    String email = principal.getName();
+    try {
+      logic.deleteAlias(email, alias);
+      return HttpResponse.ok();
+    } catch (AliasAlreadyExist e) {
+      return HttpResponse.serverError(
+        json.toJson(new ErrorResponse(1, "Alias not found."))
+      );
+    }
+  }
+
+  /**
+   * Get user URL alias.
+   */
+  @Get(value = "/urls", processes = MediaType.APPLICATION_JSON)
+  public HttpResponse<?> showUserAlias(
+    @Body UrlShortenRequest request,
+    Principal principal,
+    HttpRequest<?> httpRequest
+  ) throws JsonProcessingException {
+    String email = principal.getName();
+    try {
+      List<UrlAlias> al = logic.showUserAlias(email);
+      return HttpResponse.ok(
+        json.toJson(al.toArray())
+      );
+    } catch (AliasAlreadyExist e) {
+      return HttpResponse.serverError(
+        json.toJson(new ErrorResponse(1, "User not found."))
       );
     }
   }
