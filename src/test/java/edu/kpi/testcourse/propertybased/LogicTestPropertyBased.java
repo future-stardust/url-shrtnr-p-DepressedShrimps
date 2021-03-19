@@ -37,5 +37,4 @@ public class LogicTestPropertyBased {
     return new Logic(new UserRepositoryFakeImpl(), new UrlRepositoryFakeImpl()
     );
   }
-
 }
