@@ -137,6 +137,20 @@ class UserRepositoryFileImplTest {
     assertThat(userRepository.getAllAliasesForUser().get(0)).isEqualTo("short");
   }
 
-  
+  @Test
+  void deleteUserAliasTest () {
+    // GIVEN
+    var email = "user@example.org";
+    var user = new User(email, "hash1", new ArrayList<String>());
+
+    userRepository.createUser(user);
+    userRepository.addUrlAlias(user.email, "short");
+
+    // WHEN
+    userRepository.deleteUrlAlias(user.email, "short");
+
+    // THEN
+    assertThat(userRepository.getAllAliasesForUser()).isEmpty();
+  }
 
 }
