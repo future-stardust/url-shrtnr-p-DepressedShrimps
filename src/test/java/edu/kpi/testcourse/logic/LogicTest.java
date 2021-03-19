@@ -106,5 +106,18 @@ class LogicTest {
     assertThat(logic.findFullUrl("short")).isNull();
   }
 
+  @Test
+  void shouldListUserAliases() {
+    // GIVEN
+    Logic logic = createLogic();
 
+    // WHEN
+    var alias1 = logic.createNewAlias("aaa@bbb.com", "http://g.com/loooong_url", "short");
+    var alias2 = logic.createNewAlias("aaa@bbb.com", "http://g.com/loooong_url", "shorter");
+    var aliases = logic.showUserAlias("aaa@bbb.com");
+
+    // THEN
+    assertThat(aliases.get(0).alias).isEqualTo("short");
+    assertThat(aliases.get(1).alias).isEqualTo("shorter");
+  }
 }
