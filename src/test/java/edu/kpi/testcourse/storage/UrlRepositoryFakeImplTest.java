@@ -53,5 +53,4 @@ class UrlRepositoryFakeImplTest {
     assertThat(repo.findUrlAlias("http://r.com/short")).isEqualTo(null);
   }
 
-
 }
