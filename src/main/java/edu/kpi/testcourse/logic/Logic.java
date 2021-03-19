@@ -100,7 +100,7 @@ public class Logic {
     List<String> userAlias = users.getAllAliasesForUser(email);
     if (userAlias != null) {
       List<UrlAlias> urls = new ArrayList<>();
-      for(String url: userAlias){
+      for (String url : userAlias) {
         urls.add(this.urls.findUrlAlias(url));
       }
       return urls;
@@ -132,9 +132,4 @@ public class Logic {
       super("User with such email is already created");
     }
   }
-
-  /**
-   *
-   */
-
 }

@@ -52,12 +52,17 @@ public class HashUtils {
     }
   }
 
+  /**
+   * Generate a 8 symbol hash of a link
+   * @param url - link that will be hashed
+   * @return - string of link hash
+   */
   public String generateShortHas(String url) {
     CRC32 crc = new CRC32();
     try {
       crc.update(url.getBytes());
       return Long.toHexString(crc.getValue());
-    } catch(NullPointerException e){
+    } catch (NullPointerException e) {
       throw new RuntimeException("Error during short url generation", e);
     }
   }
