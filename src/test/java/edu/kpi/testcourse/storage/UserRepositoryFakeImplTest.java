@@ -62,4 +62,36 @@ class UserRepositoryFakeImplTest {
     assertThat(userRepository.findUser("user1@example.org")).isEqualTo(null);
   }
 
+  @Test
+  void addUserAliasTestAndListAliasesTest () {
+    // GIVEN
+    var userRepository = new UserRepositoryFakeImpl();
+    var email = "user@example.org";
+    var user = new User(email, "hash1", new ArrayList<String>());
+
+    userRepository.createUser(user);
+
+    // WHEN
+    userRepository.addUrlAlias(user.email, "short");
+
+    // THEN
+    assertThat(userRepository.getAllAliasesForUser().get(0)).isEqualTo("short");
+  }
+
+  @Test
+  void deleteUserAliasTest () {
+    // GIVEN
+    var userRepository = new UserRepositoryFakeImpl();
+    var email = "user@example.org";
+    var user = new User(email, "hash1", new ArrayList<String>());
+
+    userRepository.createUser(user);
+    userRepository.addUrlAlias(user.email, "short");
+
+    // WHEN
+    userRepository.deleteUrlAlias(user.email, "short");
+
+    // THEN
+    assertThat(userRepository.getAllAliasesForUser()).isEmpty();
+  }
 }
