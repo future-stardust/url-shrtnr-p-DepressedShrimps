@@ -61,7 +61,7 @@ public class UrlRepositoryFileImpl implements UrlRepository {
   }
 
   private static Path makeJsonFilePath(Path storageRoot) {
-    return storageRoot.resolve("urls-repository.json");
+    return storageRoot.resolve("url-repository.json");
   }
 
   private static Map<String, UrlAlias> readUrlsFromJsonDatabaseFile(
