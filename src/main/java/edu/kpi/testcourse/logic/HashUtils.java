@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.util.zip.CRC32;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
@@ -48,6 +49,16 @@ public class HashUtils {
       return iterations + ":" + toHex(salt) + ":" + toHex(hash);
     } catch (InvalidKeySpecException e) {
       throw new RuntimeException("Error during password hash generation", e);
+    }
+  }
+
+  public String generateShortHas(String url) {
+    CRC32 crc = new CRC32();
+    try {
+      crc.update(url.getBytes());
+      return Long.toHexString(crc.getValue());
+    } catch(NullPointerException e){
+      throw new RuntimeException("Error during short url generation", e);
     }
   }
 

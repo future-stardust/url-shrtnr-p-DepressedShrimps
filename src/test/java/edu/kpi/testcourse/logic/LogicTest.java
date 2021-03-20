@@ -5,6 +5,8 @@ import edu.kpi.testcourse.entities.User;
 import edu.kpi.testcourse.storage.UrlRepository.AliasAlreadyExist;
 import edu.kpi.testcourse.storage.UrlRepositoryFakeImpl;
 import edu.kpi.testcourse.storage.UserRepositoryFakeImpl;
+import java.util.ArrayList;
+import javax.validation.constraints.Null;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -41,7 +43,7 @@ class LogicTest {
   void shouldNotAllowUserCreationIfEmailIsUsed() {
     // GIVEN
     UserRepositoryFakeImpl users = new UserRepositoryFakeImpl();
-    users.createUser(new User("aaa@bbb.com", "hash"));
+    users.createUser(new User("aaa@bbb.com", "hash", new ArrayList<String>()));
     Logic logic = createLogic(users);
 
     assertThatThrownBy(() -> {
@@ -90,5 +92,47 @@ class LogicTest {
     assertThatThrownBy(() -> {
       logic.createNewAlias("ddd@bbb.com", "http://d.com/laaaang_url", "short");
     }).isInstanceOf(AliasAlreadyExist.class);
+  }
+
+  @Test
+  void shouldDeleteAlias() {
+    // GIVEN
+    Logic logic = createLogic();
+
+    // WHEN
+    var alias = logic.createNewAlias("aaa@bbb.com", "http://g.com/loooong_url", "short");
+    logic.deleteAlias("aaa@bbb.com", "short");
+
+    // THEN
+    assertThat(logic.findFullUrl("short")).isNull();
+  }
+
+  @Test
+  void shouldListUserAliases() {
+    // GIVEN
+    Logic logic = createLogic();
+
+    // WHEN
+    var alias1 = logic.createNewAlias("aaa@bbb.com", "http://g.com/loooong_url", "short");
+    var alias2 = logic.createNewAlias("aaa@bbb.com", "http://g.com/loooong_url", "shorter");
+    var aliases = logic.showUserAlias("aaa@bbb.com");
+
+    // THEN
+    assertThat(aliases.get(0).alias).isEqualTo("short");
+    assertThat(aliases.get(1).alias).isEqualTo("shorter");
+  }
+
+  @Test
+  void shouldNotReturnListOfAliases() {
+    // GIVEN
+    Logic logic = createLogic();
+
+    // WHEN
+    var alias1 = logic.createNewAlias("aaa@bbb.com", "http://g.com/loooong_url", "short");
+    logic.deleteAlias("aaa@bbb.com", "short");
+    var aliases = logic.showUserAlias("aaa@bbb.com");
+
+    // THEN
+    assertThat(aliases).isEqualTo(null);
   }
 }

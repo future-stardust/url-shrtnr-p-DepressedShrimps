@@ -1,6 +1,8 @@
 package edu.kpi.testcourse.storage;
 
+import edu.kpi.testcourse.entities.UrlAlias;
 import edu.kpi.testcourse.entities.User;
+import java.util.List;
 import javax.annotation.Nullable;
 
 /**
@@ -21,4 +23,19 @@ public interface UserRepository {
    *          exist.
    */
   @Nullable User findUser(String email);
+
+  /**
+   * Finds all URLs that belong to the user with the given email.
+   */
+  List<String> getAllAliasesForUser(String userEmail);
+
+  /**
+   * Add alias by email.
+   */
+  void addUrlAlias(String email, String alias);
+
+  /**
+   * Delete alias by email.
+   */
+  void deleteUrlAlias(String email, String alias);
 }
