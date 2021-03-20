@@ -7,8 +7,10 @@ import edu.kpi.testcourse.serialization.JsonTool;
 import edu.kpi.testcourse.serialization.JsonToolJacksonImpl;
 import edu.kpi.testcourse.storage.UrlRepository;
 import edu.kpi.testcourse.storage.UrlRepositoryFakeImpl;
+import edu.kpi.testcourse.storage.UrlRepositoryFileImpl;
 import edu.kpi.testcourse.storage.UserRepository;
 import edu.kpi.testcourse.storage.UserRepositoryFakeImpl;
+import edu.kpi.testcourse.storage.UserRepositoryFileImpl;
 import io.micronaut.context.annotation.Factory;
 import java.nio.file.Paths;
 import javax.inject.Singleton;
@@ -28,6 +30,16 @@ public class BeanFactory {
   @Singleton
   UserRepository createUserRepository() {
     return new UserRepositoryFakeImpl();
+  }
+
+  @Singleton
+  UserRepository createUserFileRepository(JsonTool jsonTool, UrlShortenerConfig appConfig) {
+    return new UserRepositoryFileImpl(jsonTool, appConfig);
+  }
+
+  @Singleton
+  UrlRepository createUrlFileRepository(JsonTool jsonTool, UrlShortenerConfig appConfig) {
+    return new UrlRepositoryFileImpl(jsonTool, appConfig);
   }
 
   @Singleton

@@ -3,6 +3,11 @@ package edu.kpi.testcourse.storage;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import edu.kpi.testcourse.serialization.JsonToolJacksonImpl;
+import edu.kpi.testcourse.logic.UrlShortenerConfig;
+import edu.kpi.testcourse.entities.UrlAlias;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import java.io.IOException;
 import java.nio.file.Files;
 import org.junit.jupiter.api.AfterEach;
@@ -69,7 +74,7 @@ public class UrlRepositoryFileImplTest {
     urlRepository.deleteUrlAlias("aaa@bbb.com", "http://r.com/short");
 
     // THEN
-    UrlAlias alias = urlRepository.findUrlAlias("http://r.com/short");
+    alias = urlRepository.findUrlAlias("http://r.com/short");
     assertThat(urlRepository.findUrlAlias("http://r.com/short")).isEqualTo(null);
   }
 

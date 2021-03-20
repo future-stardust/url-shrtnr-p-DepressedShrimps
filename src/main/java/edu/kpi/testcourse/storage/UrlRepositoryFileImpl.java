@@ -14,6 +14,9 @@ import java.util.Map;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
+/**
+ * A file-backed implementation of {@link UrlRepository} suitable for use in production.
+ */
 public class UrlRepositoryFileImpl implements UrlRepository {
   private final Map<String, UrlAlias> aliases;
 
@@ -24,15 +27,22 @@ public class UrlRepositoryFileImpl implements UrlRepository {
    * Creates an instance.
    */
   @Inject
-  public UrlRepositoryFileImpl(JsonTool jsonTool, UrlShortenerConfig appConfig) {
+  public UrlRepositoryFileImpl(
+      JsonTool jsonTool,
+      UrlShortenerConfig appConfig
+  ) {
     this.jsonTool = jsonTool;
     this.appConfig = appConfig;
-    this.aliases = readUrlsFromJsonDatabaseFile(jsonTool, makeJsonFilePath(appConfig.storageRoot()));
+    this.aliases = readUrlsFromJsonDatabaseFile(
+        jsonTool,
+        makeJsonFilePath(appConfig.storageRoot()
+        ));
   }
+
   @Override
   public synchronized void createUrlAlias(UrlAlias urlAlias) {
     if (aliases.putIfAbsent(urlAlias.alias(), urlAlias) != null) {
-      throw new RuntimeException("Url already exists");
+      throw new AliasAlreadyExist();
     }
     writeUrlsToJsonDatabaseFile(jsonTool, aliases, makeJsonFilePath(appConfig.storageRoot()));
   }
@@ -51,11 +61,11 @@ public class UrlRepositoryFileImpl implements UrlRepository {
   }
 
   private static Path makeJsonFilePath(Path storageRoot) {
-    return storageRoot.resolve("urls-repository.json");
+    return storageRoot.resolve("url-repository.json");
   }
 
   private static Map<String, UrlAlias> readUrlsFromJsonDatabaseFile(
-    JsonTool jsonTool, Path sourceFilePath
+      JsonTool jsonTool, Path sourceFilePath
   ) {
     String json;
     try {
@@ -72,7 +82,7 @@ public class UrlRepositoryFileImpl implements UrlRepository {
   }
 
   private static void writeUrlsToJsonDatabaseFile(
-    JsonTool jsonTool, Map<String, UrlAlias> urls, Path destinationFilePath
+      JsonTool jsonTool, Map<String, UrlAlias> urls, Path destinationFilePath
   ) {
     String json = jsonTool.toJson(urls);
     try {

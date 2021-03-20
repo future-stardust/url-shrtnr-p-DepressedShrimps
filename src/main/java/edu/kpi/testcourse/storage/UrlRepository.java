@@ -2,7 +2,6 @@ package edu.kpi.testcourse.storage;
 
 import edu.kpi.testcourse.entities.UrlAlias;
 import edu.kpi.testcourse.entities.User;
-import java.util.List;
 import javax.annotation.Nullable;
 
 /**

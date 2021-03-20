@@ -81,10 +81,10 @@ public class AuthenticatedApiController {
    */
   @Delete(value = "/urls/{alias}", processes = MediaType.APPLICATION_JSON)
   public HttpResponse<?> delete(
-    @Header String alias,
-    @Body UrlShortenRequest request,
-    Principal principal,
-    HttpRequest<?> httpRequest
+      @Header String alias,
+      @Body UrlShortenRequest request,
+      Principal principal,
+      HttpRequest<?> httpRequest
   ) throws JsonProcessingException {
     String email = principal.getName();
     try {
@@ -102,9 +102,9 @@ public class AuthenticatedApiController {
    */
   @Get(value = "/urls", processes = MediaType.APPLICATION_JSON)
   public HttpResponse<?> showUserAlias(
-    @Body UrlShortenRequest request,
-    Principal principal,
-    HttpRequest<?> httpRequest
+      @Body UrlShortenRequest request,
+      Principal principal,
+      HttpRequest<?> httpRequest
   ) throws JsonProcessingException {
     String email = principal.getName();
     try {

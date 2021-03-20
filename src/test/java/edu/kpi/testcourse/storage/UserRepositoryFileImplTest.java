@@ -131,10 +131,10 @@ class UserRepositoryFileImplTest {
     userRepository.createUser(user);
 
     // WHEN
-    userRepository.addUrlAlias(user.email, "short");
+    userRepository.addUrlAlias(email, "short");
 
     // THEN
-    assertThat(userRepository.getAllAliasesForUser().get(0)).isEqualTo("short");
+    assertThat(userRepository.getAllAliasesForUser(email).get(0)).isEqualTo("short");
   }
 
   @Test
@@ -144,13 +144,13 @@ class UserRepositoryFileImplTest {
     var user = new User(email, "hash1", new ArrayList<String>());
 
     userRepository.createUser(user);
-    userRepository.addUrlAlias(user.email, "short");
+    userRepository.addUrlAlias(email, "short");
 
     // WHEN
-    userRepository.deleteUrlAlias(user.email, "short");
+    userRepository.deleteUrlAlias(email, "short");
 
     // THEN
-    assertThat(userRepository.getAllAliasesForUser()).isEmpty();
+    assertThat(userRepository.getAllAliasesForUser(email)).isEmpty();
   }
 
 }

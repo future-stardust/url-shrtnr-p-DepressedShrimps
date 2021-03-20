@@ -33,7 +33,7 @@ public class UserRepositoryFakeImpl implements UserRepository {
 
   @Override
   public void addUrlAlias(String email, String alias) {
-    if (users.containsKey(email)){
+    if (users.containsKey(email)) {
       users.get(email).urls().add(alias);
     }
   }

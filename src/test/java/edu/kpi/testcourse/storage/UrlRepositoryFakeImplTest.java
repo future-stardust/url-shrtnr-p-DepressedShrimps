@@ -3,7 +3,6 @@ package edu.kpi.testcourse.storage;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
-
 import edu.kpi.testcourse.entities.UrlAlias;
 import org.junit.jupiter.api.Test;
 
@@ -49,7 +48,7 @@ class UrlRepositoryFakeImplTest {
     repo.deleteUrlAlias("aaa@bbb.com", "http://r.com/short");
 
     // THEN
-    UrlAlias alias = repo.findUrlAlias("http://r.com/short");
+    alias = repo.findUrlAlias("http://r.com/short");
     assertThat(repo.findUrlAlias("http://r.com/short")).isEqualTo(null);
   }
 
