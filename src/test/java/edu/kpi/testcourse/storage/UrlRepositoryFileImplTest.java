@@ -3,6 +3,7 @@ package edu.kpi.testcourse.storage;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import edu.kpi.testcourse.serialization.JsonToolJacksonImpl;
+import edu.kpi.testcourse.logic.UrlShortenerConfig;
 import java.io.IOException;
 import java.nio.file.Files;
 import org.junit.jupiter.api.AfterEach;
