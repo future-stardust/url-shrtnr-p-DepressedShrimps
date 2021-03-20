@@ -74,7 +74,7 @@ public class UrlRepositoryFileImplTest {
     urlRepository.deleteUrlAlias("aaa@bbb.com", "http://r.com/short");
 
     // THEN
-    UrlAlias alias = urlRepository.findUrlAlias("http://r.com/short");
+    alias = urlRepository.findUrlAlias("http://r.com/short");
     assertThat(urlRepository.findUrlAlias("http://r.com/short")).isEqualTo(null);
   }
 

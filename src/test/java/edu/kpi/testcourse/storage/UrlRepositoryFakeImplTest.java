@@ -48,7 +48,7 @@ class UrlRepositoryFakeImplTest {
     repo.deleteUrlAlias("aaa@bbb.com", "http://r.com/short");
 
     // THEN
-    UrlAlias alias = repo.findUrlAlias("http://r.com/short");
+    alias = repo.findUrlAlias("http://r.com/short");
     assertThat(repo.findUrlAlias("http://r.com/short")).isEqualTo(null);
   }
 
