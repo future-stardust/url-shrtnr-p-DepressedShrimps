@@ -42,7 +42,7 @@ public class UrlRepositoryFileImpl implements UrlRepository {
   @Override
   public synchronized void createUrlAlias(UrlAlias urlAlias) {
     if (aliases.putIfAbsent(urlAlias.alias(), urlAlias) != null) {
-      throw new RuntimeException("Url already exists");
+      throw new AliasAlreadyExist();
     }
     writeUrlsToJsonDatabaseFile(jsonTool, aliases, makeJsonFilePath(appConfig.storageRoot()));
   }
