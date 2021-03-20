@@ -33,7 +33,10 @@ public class UrlRepositoryFileImpl implements UrlRepository {
   ) {
     this.jsonTool = jsonTool;
     this.appConfig = appConfig;
-    this.aliases = readUrlsFromJsonDatabaseFile(jsonTool, makeJsonFilePath(appConfig.storageRoot()));
+    this.aliases = readUrlsFromJsonDatabaseFile(
+        jsonTool,
+        makeJsonFilePath(appConfig.storageRoot()
+        ));
   }
 
   @Override

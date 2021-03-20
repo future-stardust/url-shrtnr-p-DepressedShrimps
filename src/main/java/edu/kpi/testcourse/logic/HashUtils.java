@@ -53,7 +53,8 @@ public class HashUtils {
   }
 
   /**
-   * Generate a 8 symbol hash of a link
+   * Generate a 8 symbol hash of a link.
+   *
    * @param url - link that will be hashed
    * @return - string of link hash
    */
