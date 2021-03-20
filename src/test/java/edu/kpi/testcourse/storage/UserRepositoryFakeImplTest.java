@@ -75,7 +75,7 @@ class UserRepositoryFakeImplTest {
     userRepository.addUrlAlias(user.email, "short");
 
     // THEN
-    assertThat(userRepository.getAllAliasesForUser().get(0)).isEqualTo("short");
+    assertThat(userRepository.getAllAliasesForUser(email).get(0)).isEqualTo("short");
   }
 
   @Test
@@ -92,6 +92,6 @@ class UserRepositoryFakeImplTest {
     userRepository.deleteUrlAlias(user.email, "short");
 
     // THEN
-    assertThat(userRepository.getAllAliasesForUser()).isEmpty();
+    assertThat(userRepository.getAllAliasesForUser(email)).isEmpty();
   }
 }

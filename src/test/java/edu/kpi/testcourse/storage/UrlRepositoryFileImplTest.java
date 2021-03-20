@@ -4,6 +4,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import edu.kpi.testcourse.serialization.JsonToolJacksonImpl;
 import edu.kpi.testcourse.logic.UrlShortenerConfig;
+import edu.kpi.testcourse.entities.UrlAlias;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import java.io.IOException;
 import java.nio.file.Files;
 import org.junit.jupiter.api.AfterEach;
