@@ -1,14 +1,77 @@
 micronaut:
   application:
-    name: test-course-template
-  server:
-    cors:
-      enabled: true
+    name: urlShortenerServer
+
+  router:
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
+      swagger-ui:
+        paths: classpath:META-INF/swagger/views/swagger-ui
+        mapping: /swagger-ui/**
+
   security:
-    authentication: bearer
-    token:
-      jwt:
-        signatures:
-          secret:
-            generator:
-              secret: supaDupaSecretThatNobodyWillKnow
+    enabled: true
+    endpoints:
+      login:
+        enabled: false
+      logout:
+        path: /users/signout
+        enabled: true
+    intercept-url-map:
+      - pattern: /swagger/*
+        access:
+          - isAnonymous()
+          - isAuthenticated()
+      - pattern: /swagger-ui/*
+        access:
+          - isAnonymous()
+          - isAuthenticated()
+
+jackson:
+  property-naming-strategy: SNAKE_CASE
+
+url:
+  proposal-count: 5
+
+encryption:
+  count-of-iterations: 65536
+  key-length: 128
+  salt: changeMe
+  hashing.dummy.enabled: true
+
+synonyms:
+  api:
+    host: https://api.datamuse.com
+
+cache:
+  url:
+    duration: PT10M
+    max-size: 1000
+  token:
+    duration: PT20M
+    max-size: 250
+
+repository:
+  token:
+    table-name: token
+    bucket-number: 5
+    key-length: 40
+  url:
+    table-name: url
+    bucket-number: 5
+    key-length: 20
+  user:
+    table-name: userTable
+    bucket-number: 2
+    key-length: 64
+  userUrl:
+    table-name: userUrl
+    bucket-number: 5
+    key-length: 64
+
+service:
+  host: localhost:8080
+  schema: http
+

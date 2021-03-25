@@ -39,3 +39,7 @@ local.properties
 
 # Cache of project
 .gradletasknamecache
+
+.DS_Store
+
+BigTable
