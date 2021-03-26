@@ -35,4 +35,21 @@ public class HashingPropertyBased {
     });
   }
 
+  @Test
+  void matchHashToString() {
+    qt()
+      .forAll(
+        strings().basicLatinAlphabet().ofLengthBetween(0, 10)
+      ).check((unhashedText) -> {
+      // GIVEN
+      String hashedText = hashingEngineInstance.hash(unhashedText);
+
+      // WHEN
+      boolean matchResult = hashingEngineInstance.match(hashedText, unhashedText);
+
+      // THEN
+      assertThat(matchResult).isTrue();
+    });
+  }
+
 }
