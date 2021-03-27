@@ -29,9 +29,10 @@ public class HashingPropertyBased {
       // WHEN
       String hashedText1 = hashingEngineInstance.hash(unhashedText);
       String hashedText2 = hashingEngineInstance.hash(unhashedText);
+      boolean compareHashes = hashedText1.equals(hashedText2);
 
       // THEN
-      assertThat(hashedText1).isEqualTo(hashedText2);
+      return compareHashes;
     });
   }
 
@@ -48,7 +49,7 @@ public class HashingPropertyBased {
       boolean matchResult = hashingEngineInstance.match(hashedText, unhashedText);
 
       // THEN
-      assertThat(matchResult).isTrue();
+      return matchResult;
     });
   }
 
