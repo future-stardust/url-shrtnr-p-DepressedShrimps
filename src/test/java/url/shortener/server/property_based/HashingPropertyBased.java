@@ -32,7 +32,7 @@ public class HashingPropertyBased {
       boolean compareHashes = hashedText1.equals(hashedText2);
 
       // THEN
-      return compareHashes;
+      return hashedText1.equals(hashedText2);
     });
   }
 
@@ -49,7 +49,7 @@ public class HashingPropertyBased {
       boolean matchResult = hashingEngineInstance.match(hashedText, unhashedText);
 
       // THEN
-      return matchResult;
+      return hashingEngineInstance.match(hashedText, unhashedText);
     });
   }
 
