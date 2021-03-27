@@ -5,7 +5,11 @@ import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
+import static org.quicktheories.QuickTheory.qt;
+import static org.quicktheories.generators.SourceDSL.strings;
+
 import javax.inject.Inject;
+
 
 @MicronautTest
 class UrlShortenerServerTest {
